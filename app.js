@@ -1,21 +1,18 @@
 const express = require('express');
+const morgan = require('morgan');
+const loginRouter = require('./Routes/loginRouter');
+const orderRouter = require('./Routes/orederRouter');
+const userRouter = require('./Routes/userRouter');
 
 const app = express();
 
-app.use(express.json({ limit: '10kb' })); // body parser, reading data from body into req.body
+// 1) Middlewares
+app.use(morgan('dev'));
+app.use(express.json({ limit: '10kb' })); // body parser
 
-app.get('/', (req, res) => {
-  res.status(200).json({
-    message: 'Hello From the Server 🤩 ',
-    app: 'Gal Telcom',
-  });
-});
+// 2) Middlewares Routes
+app.use('/api/v1/login', loginRouter);
+app.use('/api/v1/order', orderRouter);
+app.use('/api/v1/user', userRouter);
 
-app.post('/', (req, res) => {
-  res.json({ test: 'test' });
-});
-
-const port = 3000;
-app.listen(port, () => {
-  console.log(`App running on port ${port} 🚀 `);
-});
+module.exports = app;
