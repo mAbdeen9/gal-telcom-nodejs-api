@@ -19,7 +19,7 @@ const PendingSerialOrdersSchema = mongoose.Schema({
   },
   orederStatus: {
     type: String,
-    required: [true, 'order must have orederStatus !'],
+    required: [true, 'order must have orederStatus!'],
   },
   order: [
     {
