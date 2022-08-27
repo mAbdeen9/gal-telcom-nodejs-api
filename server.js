@@ -10,9 +10,19 @@ mongoose
   .connect(DB, {
     useNewUrlParser: true,
   })
-  .then(() => console.log('DB connection Successful'));
+  .then(() => console.log('DB connection Successful'))
+  .catch((err) => console.log(err.message));
 
 const port = 3000;
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`App running on port ${port}`);
+});
+
+// Handle all not handled Promises
+process.on('unhandledRejection', (err) => {
+  console.log('UNHANDLED REJECTION! Shutting down...');
+  console.log(err);
+  server.close(() => {
+    process.exit(1);
+  });
 });
