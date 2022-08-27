@@ -3,19 +3,23 @@ const mongoose = require('mongoose');
 const PendingSerialOrdersSchema = mongoose.Schema({
   id: {
     type: String,
-    required: [true, 'order must have id !'],
+    required: [true, 'order must have id!'],
   },
   username: {
     type: String,
-    required: [true, 'order must have username !'],
+    required: [true, 'order must have username!'],
   },
-  dateTime: {
+  date: {
     type: String,
-    required: [true, 'order must have dateTime !'],
+    required: [true, 'order must have date!'],
+  },
+  time: {
+    type: String,
+    required: [true, 'order must have Time!'],
   },
   orderType: {
     type: String,
-    required: [true, 'order must have orderType !'],
+    required: [true, 'order must have orderType!'],
   },
   orederStatus: {
     type: String,
@@ -23,14 +27,15 @@ const PendingSerialOrdersSchema = mongoose.Schema({
   },
   order: [
     {
-      name: String,
-      value: String,
-      type: String,
+      name: { type: String },
+      value: { type: String },
+      type: { type: String },
     },
   ],
+  createdAt: { type: Date, default: Date.now },
 });
 
-const PendingSerialOrders = PendingSerialOrdersSchema.model(
+const PendingSerialOrders = mongoose.model(
   'PendingSerialOrders',
   PendingSerialOrdersSchema
 );
