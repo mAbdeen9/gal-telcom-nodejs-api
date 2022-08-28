@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { User } = require('../Models/User');
+const { User, validateLogin } = require('../Models/User');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
@@ -9,12 +9,12 @@ const signToken = (id) =>
   });
 
 exports.login = catchAsync(async (req, res, next) => {
+  // 1) Check if phone and password exist (Joi Validation)
+  const { error } = validateLogin(req.body);
+  if (error) return next(new AppError('נא לספק טלפון וסיסמה', 400));
+
   const { phone, password } = req.body;
 
-  // 1) Check if phone and password exist
-  if (!phone || !password) {
-    return next(new AppError('נא לספק טלפון וסיסמה', 400));
-  }
   // 2) Check if user exists && password is correct
   const user = await User.findOne({ phone }).select('+password');
   if (!user || !(await user.correctPassword(password, user.password))) {
@@ -22,13 +22,13 @@ exports.login = catchAsync(async (req, res, next) => {
   }
 
   // 3) if everything ok, send token to client
-
   const token = signToken(user._id);
   res.status(200).json({
     status: 'Success',
     data: {
       username: user.name,
       id: user.id,
+      role: user.role,
     },
     token,
   });

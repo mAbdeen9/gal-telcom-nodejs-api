@@ -54,4 +54,12 @@ function validateRegister(body) {
   return registerRules.validate(body);
 }
 
-module.exports = { User, validateRegister };
+function validateLogin(body) {
+  const loginRules = joi.object({
+    phone: joi.string().required().min(6).max(12),
+    password: joi.string().required().min(6).max(12),
+  });
+  return loginRules.validate(body);
+}
+
+module.exports = { User, validateRegister, validateLogin };
