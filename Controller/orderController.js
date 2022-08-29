@@ -12,14 +12,14 @@ exports.createPendingSerialOrder = catchAsync(async (req, res, next) => {
   });
 
   if (checkIfUserSendTodayOrder) {
-    next(new AppError('הזמנה אחת ליום ✋🏻 ', 404));
+    next(new AppError('הזמנה אחת ליום ✋🏻 ', 401));
     return;
   }
 
   const newOrder = await PendingSerialOrders.create(req.body);
   res.status(200).json({
     status: 'Success',
-    message: `new order created successfully`,
+    message: `קיבלנו את בקשתך בהצלחה 👍`,
     order: newOrder,
   });
 });
