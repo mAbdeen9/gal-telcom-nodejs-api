@@ -13,6 +13,7 @@ exports.login = catchAsync(async (req, res, next) => {
   const { error } = validateLogin(req.body);
   if (error) return next(new AppError('נא לספק טלפון וסיסמה', 400));
   const { phone, password } = req.body;
+
   // 2) Check if user exists && password is correct
   const user = await User.findOne({ phone }).select('+password');
   if (!user || !(await user.correctPassword(password, user.password))) {

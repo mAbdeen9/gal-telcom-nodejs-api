@@ -1,5 +1,6 @@
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const ip = require('ip');
 
 dotenv.config({ path: './config.env' });
 
@@ -13,11 +14,11 @@ mongoose
   .then(() => console.log('DB connection Successful'))
   .catch((err) => console.log(err.message));
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
   console.log(`App running on port ${port}`);
 });
-
+console.log(ip.address());
 // Handle all not handled Promises
 process.on('unhandledRejection', (err) => {
   console.log('UNHANDLED REJECTION! 💥 Shutting down...');
