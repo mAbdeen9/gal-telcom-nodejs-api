@@ -15,4 +15,8 @@ router
   .route('/new-serial-order')
   .post(authController.protect, orderContoller.createPendingSerialOrder);
 
+router
+  .route('/new-noSerial-order')
+  .post(authController.protect, orderContoller.createPendingNoSerialOrder);
+
 module.exports = router;
