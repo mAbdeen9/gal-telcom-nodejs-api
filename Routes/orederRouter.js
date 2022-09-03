@@ -11,6 +11,7 @@ router
     authController.restrictTo('admin'),
     orderContoller.getAllPendingOrders
   );
+
 router
   .route('/new-serial-order')
   .post(authController.protect, orderContoller.createPendingSerialOrder);

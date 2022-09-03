@@ -19,6 +19,10 @@ exports.createPendingSerialOrder = catchAsync(async (req, res, next) => {
     return;
   }
 
+  const fillterdOrder = req.body.order.filter((o) => o.value !== null);
+
+  req.body.order = fillterdOrder;
+
   const newOrder = await PendingSerialOrders.create(req.body);
   res.status(200).json({
     status: 'Success',
@@ -40,6 +44,10 @@ exports.createPendingNoSerialOrder = catchAsync(async (req, res, next) => {
     next(new AppError('הזמנה אחת ליום ✋🏻 ', 401));
     return;
   }
+
+  const fillterdOrder = req.body.order.filter((o) => o.value !== null);
+
+  req.body.order = fillterdOrder;
 
   const newOrder = await PendingNoSerialOrder.create(req.body);
   res.status(200).json({
