@@ -19,4 +19,12 @@ router
   .route('/new-noSerial-order')
   .post(authController.protect, orderContoller.createPendingNoSerialOrder);
 
+router
+  .route('/my-serials-orders')
+  .get(authController.protect, orderContoller.getMySerialOrders);
+
+router
+  .route('/my-no-serials-orders')
+  .get(authController.protect, orderContoller.getMyNoSerialOrders);
+
 module.exports = router;
