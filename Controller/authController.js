@@ -24,6 +24,23 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
+exports.checkValidToken = catchAsync(async (req, res, next) => {
+  let token;
+  if (req.headers.authorization) {
+    token = req.headers.authorization;
+  }
+  if (!token) {
+    return next(new AppError('אתה לא מחובר', 401));
+  }
+
+  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+
+  if (!decoded) {
+    return next(new AppError('אתה לא מחובר', 401));
+  }
+  res.status(200);
+});
+
 exports.restrictTo = (role) => (req, res, next) => {
   if (req.user.role !== role) {
     next(new AppError('Access Denied !'), 403);
