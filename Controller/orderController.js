@@ -25,7 +25,7 @@ exports.createPendingSerialOrder = catchAsync(async (req, res, next) => {
 
   const newOrder = await PendingSerialOrders.create(req.body);
   res.status(200).json({
-    status: 'Success',
+    status: 'success',
     message: `קיבלנו את בקשתך בהצלחה 👍`,
     order: newOrder,
   });
@@ -51,7 +51,7 @@ exports.createPendingNoSerialOrder = catchAsync(async (req, res, next) => {
 
   const newOrder = await PendingNoSerialOrder.create(req.body);
   res.status(200).json({
-    status: 'Success',
+    status: 'success',
     message: `קיבלנו את בקשתך בהצלחה 👍`,
     order: newOrder,
   });
@@ -64,7 +64,7 @@ exports.getAllPendingOrders = catchAsync(async (req, res, next) => {
   const orders = [...pendingSerialOrder, ...pendingNoSerialOrder];
 
   res.status(200).json({
-    status: 'Success',
+    status: 'success',
     data: orders,
   });
 });
@@ -81,7 +81,7 @@ exports.getMySerialOrders = catchAsync(async (req, res, next) => {
   );
 
   res.status(200).json({
-    status: 'Success',
+    status: 'success',
     data: sortedArray,
   });
 });
@@ -98,7 +98,28 @@ exports.getMyNoSerialOrders = catchAsync(async (req, res, next) => {
   );
 
   res.status(200).json({
-    status: 'Success',
+    status: 'success',
     data: sortedArray,
+  });
+});
+
+exports.checkedSerial = catchAsync(async (req, res, next) => {
+  const checked = req.body;
+  delete checked._id;
+  const order = await FulFilledSerialOrders.create(checked);
+
+  await PendingSerialOrders.deleteOne(req.body._id);
+  res.status(200).json({
+    status: 'success',
+    data: order,
+  });
+});
+
+exports.checkedNoSerial = catchAsync(async (req, res, next) => {
+  const order = await FulFilledNoSerialOrders.create(req.body);
+
+  res.status(200).json({
+    status: 'success',
+    data: order,
   });
 });

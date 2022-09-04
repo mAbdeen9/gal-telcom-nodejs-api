@@ -13,6 +13,22 @@ router
   );
 
 router
+  .route('/checked-serial')
+  .post(
+    authController.protect,
+    authController.restrictTo('admin'),
+    orderContoller.checkedSerial
+  );
+
+router
+  .route('/checked-no-serial')
+  .post(
+    authController.protect,
+    authController.restrictTo('admin'),
+    orderContoller.checkedNoSerial
+  );
+
+router
   .route('/new-serial-order')
   .post(authController.protect, orderContoller.createPendingSerialOrder);
 

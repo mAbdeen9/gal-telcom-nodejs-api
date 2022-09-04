@@ -6,6 +6,6 @@ const router = express.Router();
 
 // Login
 router.route('/').post(loginController.login);
-router.route('/validatingToken').post(authController.checkValidToken);
+router.route('/valExpiredToken').post(authController.checkValidToken);
 
 module.exports = router;
