@@ -1,3 +1,4 @@
+/* eslint-disable node/no-unsupported-features/es-syntax */
 const PendingSerialOrders = require('../Models/PendingSerialOrders');
 const PendingNoSerialOrder = require('../Models/PendingNoSerialOrders');
 const FulFilledSerialOrders = require('../Models/FulFilledSerialOrders');
@@ -104,22 +105,26 @@ exports.getMyNoSerialOrders = catchAsync(async (req, res, next) => {
 });
 
 exports.checkedSerial = catchAsync(async (req, res, next) => {
-  const checked = req.body;
+  const checked = { ...req.body };
   delete checked._id;
-  const order = await FulFilledSerialOrders.create(checked);
-
-  await PendingSerialOrders.deleteOne(req.body._id);
+  const fillterdOrder = checked.order.filter((o) => o.value !== '--');
+  checked.order = fillterdOrder;
+  await FulFilledSerialOrders.create(checked);
+  await PendingSerialOrders.findByIdAndDelete(req.body._id);
   res.status(200).json({
     status: 'success',
-    data: order,
   });
 });
 
 exports.checkedNoSerial = catchAsync(async (req, res, next) => {
-  const order = await FulFilledNoSerialOrders.create(req.body);
+  const checked = { ...req.body };
+  delete checked._id;
 
+  const fillterdOrder = checked.order.filter((o) => o.value !== '--');
+  checked.order = fillterdOrder;
+  await FulFilledNoSerialOrders.create(checked);
+  await PendingNoSerialOrder.findByIdAndDelete(req.body._id);
   res.status(200).json({
     status: 'success',
-    data: order,
   });
 });
