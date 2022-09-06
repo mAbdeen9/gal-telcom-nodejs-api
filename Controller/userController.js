@@ -20,3 +20,18 @@ exports.createUser = catchAsync(async (req, res, next) => {
     message: `new account for ${newUser.name} created successfully`,
   });
 });
+
+exports.deleteUser = catchAsync(async (req, res, next) => {
+  const { phone } = req.body;
+  console.log(req.body);
+  const user = await User.findOneAndDelete({ phone: phone });
+
+  if (!user) {
+    return next(new AppError('לא נמצא משתמש עם הטלפון הזה', 404));
+  }
+
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
+});

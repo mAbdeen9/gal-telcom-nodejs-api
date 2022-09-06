@@ -12,4 +12,12 @@ router
     userController.createUser
   );
 
+router
+  .route('/delete-user')
+  .delete(
+    authController.protect,
+    authController.restrictTo('admin'),
+    userController.deleteUser
+  );
+
 module.exports = router;
