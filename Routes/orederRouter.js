@@ -21,6 +21,22 @@ router
   );
 
 router
+  .route('/get-user-serial-orders/:id')
+  .get(
+    authController.protect,
+    authController.restrictTo('admin'),
+    orderContoller.getUserSerialOrders
+  );
+
+router
+  .route('/get-user-no-serial-orders/:id')
+  .get(
+    authController.protect,
+    authController.restrictTo('admin'),
+    orderContoller.getUserNoSerialOrders
+  );
+
+router
   .route('/checked-no-serial')
   .post(
     authController.protect,

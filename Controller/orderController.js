@@ -128,3 +128,29 @@ exports.checkedNoSerial = catchAsync(async (req, res, next) => {
     status: 'success',
   });
 });
+
+exports.getUserSerialOrders = catchAsync(async (req, res, next) => {
+  const data = await FulFilledSerialOrders.find(req.params);
+
+  if (data.length <= 0) {
+    return next(new AppError('אין מידע', 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data,
+  });
+});
+
+exports.getUserNoSerialOrders = catchAsync(async (req, res, next) => {
+  const data = await FulFilledNoSerialOrders.find(req.params);
+
+  if (data.length <= 0) {
+    return next(new AppError('אין מידע', 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data,
+  });
+});
