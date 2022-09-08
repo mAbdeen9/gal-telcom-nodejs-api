@@ -1,8 +1,10 @@
 /* eslint-disable node/no-unsupported-features/es-syntax */
 const PendingSerialOrders = require('../Models/PendingSerialOrders');
 const PendingNoSerialOrder = require('../Models/PendingNoSerialOrders');
-const FulFilledSerialOrders = require('../Models/FulFilledSerialOrders');
-const FulFilledNoSerialOrders = require('../Models/FulFilledNoSerialOrders');
+
+const FulFilledSerialOrders = require('../Models/FulfilledSerialOrders');
+const FulFilledNoSerialOrders = require('../Models/FulfilledNoSerialOrders');
+
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
