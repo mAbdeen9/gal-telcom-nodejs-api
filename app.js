@@ -34,12 +34,12 @@ app.use(xss()); // Data sanitization against XSS
 app.use(compression()); //improve the performance
 // 2) Middlewares Routes
 
-// app.use('/api/v1/login', loginRouter);
-// app.use('/api/v1/order', orderRouter);
-// app.use('/api/v1/user', userRouter);
-// app.all('*', (req, res, next) =>
-//   next(new AppError(`Can't find ${req.originalUrl} on this server !`, 404))
-// );
+app.use('/api/v1/login', loginRouter);
+app.use('/api/v1/order', orderRouter);
+app.use('/api/v1/user', userRouter);
+app.all('*', (req, res, next) =>
+  next(new AppError(`Can't find ${req.originalUrl} on this server !`, 404))
+);
 
 // 3) Express Built in Global Error Handler Middleware
 app.use(globalErrorHandler);
