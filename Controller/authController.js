@@ -12,8 +12,8 @@ exports.protect = catchAsync(async (req, res, next) => {
   if (!token) {
     return next(new AppError('אתה לא מחובר', 401));
   }
-
-  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  const decoded = jwt.verify(token,  process.env.JWT_SECRET);
+  // const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
   //  Check if user still exists
   const currentUser = await User.findById(decoded.id);
