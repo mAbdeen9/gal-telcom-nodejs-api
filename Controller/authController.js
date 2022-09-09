@@ -40,7 +40,8 @@ exports.checkValidToken = catchAsync(async (req, res, next) => {
     return next(new AppError('אתה לא מחובר', 401));
   }
 
-  next()
+  res.status(200).json({
+    status: 'Success'})
 });
 
 exports.restrictTo = (role) => (req, res, next) => {
