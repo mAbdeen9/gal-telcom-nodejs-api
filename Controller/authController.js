@@ -1,4 +1,4 @@
-const { promisify } = require('util');
+// const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 const { User } = require('../Models/User');
 const catchAsync = require('../utils/catchAsync');
@@ -33,7 +33,9 @@ exports.checkValidToken = catchAsync(async (req, res, next) => {
     return next(new AppError('אתה לא מחובר', 401));
   }
 
-  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  const decoded = jwt.verify(token,  process.env.JWT_SECRET);
+
+  // const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
   if (!decoded) {
     return next(new AppError('אתה לא מחובר', 401));

@@ -15,9 +15,9 @@ const globalErrorHandler = require('./Controller/errorController');
 
 const app = express();
 const limiter = rateLimit({
-  max: 200,
-  windowMs: 60 * 60 * 1000,
-  message: 'Too many requests from this IP, please try again in an hour!',
+  max: 1200,
+  windowMs: 30 * 30 * 1000,
+  message: 'Too many requests from this IP, please try again in an half-hour!',
 });
 app.enable('trust proxy');
 
