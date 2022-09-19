@@ -14,7 +14,6 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-
   //  Check if user still exists
   const currentUser = await User.findById(decoded.id);
   if (!currentUser) {
@@ -33,15 +32,14 @@ exports.checkValidToken = catchAsync(async (req, res, next) => {
     return next(new AppError('אתה לא מחובר', 401));
   }
 
-
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-
   if (!decoded) {
     return next(new AppError('אתה לא מחובר', 401));
   }
 
   res.status(200).json({
-    status: 'Success'})
+    status: 'Success',
+  });
 });
 
 exports.restrictTo = (role) => (req, res, next) => {

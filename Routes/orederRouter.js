@@ -37,6 +37,14 @@ router
   );
 
 router
+  .route('/aggregate-user-no-serial')
+  .get(
+    authController.protect,
+    authController.restrictTo('admin'),
+    orderContoller.getExcelSheetNoSerial
+  );
+
+router
   .route('/checked-no-serial')
   .post(
     authController.protect,
