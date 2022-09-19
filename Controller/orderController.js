@@ -159,11 +159,12 @@ exports.getUserNoSerialOrders = catchAsync(async (req, res, next) => {
 
 exports.getExcelSheetNoSerial = catchAsync(async (req, res, next) => {
   const { id, startingDate, endDate } = req.body;
-
+  console.log('test ❤️ ');
+  console.log(req.body);
   const data = await FulFilledNoSerialOrders.aggregate([
     {
       $match: {
-        id: { $eq: '22' },
+        id: { $eq: id },
         createdAt: {
           $gte: new Date(startingDate),
           $lt: new Date(`${endDate},24:00:00`),
@@ -176,8 +177,9 @@ exports.getExcelSheetNoSerial = catchAsync(async (req, res, next) => {
       },
     },
   ]);
+
   res.status(200).json({
     status: 'success',
-    data,
+    data: data,
   });
 });
