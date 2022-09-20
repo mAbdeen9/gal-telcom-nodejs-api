@@ -158,9 +158,7 @@ exports.getUserNoSerialOrders = catchAsync(async (req, res, next) => {
 });
 
 exports.getExcelSheetNoSerial = catchAsync(async (req, res, next) => {
-  console.log(req.body);
   const { id, startingDate, endDate } = req.body;
-
   const data = await FulFilledNoSerialOrders.aggregate([
     {
       $match: {
