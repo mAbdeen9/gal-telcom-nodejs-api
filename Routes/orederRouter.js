@@ -22,7 +22,7 @@ router
 
 router
   .route('/get-user-serial-orders/:id')
-  .get(
+  .post(
     authController.protect,
     authController.restrictTo('admin'),
     orderContoller.getUserSerialOrders
