@@ -6,13 +6,14 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const compression = require('compression');
 const cors = require('cors');
-
+const ip = require('ip');
 const loginRouter = require('./Routes/loginRouter');
 const orderRouter = require('./Routes/orederRouter');
 const userRouter = require('./Routes/userRouter');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./Controller/errorController');
 
+console.log(ip.address());
 const app = express();
 const limiter = rateLimit({
   max: 1200,
