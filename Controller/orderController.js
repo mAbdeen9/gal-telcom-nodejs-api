@@ -5,6 +5,8 @@ const PendingNoSerialOrder = require('../Models/PendingNoSerialOrders');
 const FulFilledSerialOrders = require('../Models/FulfilledSerialOrders');
 const FulFilledNoSerialOrders = require('../Models/FulfilledNoSerialOrders');
 
+const { User } = require('../Models/User');
+
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
@@ -159,6 +161,7 @@ exports.getUserNoSerialOrders = catchAsync(async (req, res, next) => {
 
 exports.getExcelSheetNoSerial = catchAsync(async (req, res, next) => {
   const { id, startingDate, endDate } = req.body;
+  const user = await User.find({ id: id });
   const data = await FulFilledNoSerialOrders.aggregate([
     {
       $match: {
@@ -179,5 +182,6 @@ exports.getExcelSheetNoSerial = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     data: data,
+    user,
   });
 });
