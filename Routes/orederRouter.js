@@ -22,7 +22,7 @@ router
 
 router
   .route('/get-user-serial-orders/:id')
-  .post(
+  .get(
     authController.protect,
     authController.restrictTo('admin'),
     orderContoller.getUserSerialOrders
@@ -38,7 +38,7 @@ router
 
 router
   .route('/aggregate-user-no-serial')
-  .get(
+  .post(
     authController.protect,
     authController.restrictTo('admin'),
     orderContoller.getExcelSheetNoSerial
