@@ -185,3 +185,29 @@ exports.getExcelSheetNoSerial = catchAsync(async (req, res, next) => {
     user,
   });
 });
+
+exports.getExcelSheetNoSerialAll = catchAsync(async (req, res, next) => {
+  const { startingDate, endDate } = req.body;
+
+  const data = await FulFilledNoSerialOrders.aggregate([
+    {
+      $match: {
+        createdAt: {
+          $gte: new Date(startingDate),
+          $lt: new Date(`${endDate},24:00:00`),
+        },
+      },
+    },
+    {
+      $group: {
+        _id: '$order',
+        user: { $first: '$username' },
+      },
+    },
+  ]);
+
+  res.status(200).json({
+    status: 'success',
+    data: data,
+  });
+});
