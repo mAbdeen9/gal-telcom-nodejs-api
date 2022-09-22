@@ -134,17 +134,19 @@ exports.checkedNoSerial = catchAsync(async (req, res, next) => {
 });
 
 exports.getUserSerialOrders = catchAsync(async (req, res, next) => {
-  let data = await FulFilledSerialOrders.find(req.params);
+  const data = await FulFilledSerialOrders.find(req.params);
 
   if (data.length <= 0) {
     return next(new AppError('אין מידע', 404));
   }
 
-  data = data.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  const sortedArray = data.sort(
+    (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
+  );
 
   res.status(200).json({
     status: 'success',
-    data,
+    data: sortedArray,
   });
 });
 
