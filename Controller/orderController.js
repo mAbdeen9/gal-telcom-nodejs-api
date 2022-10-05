@@ -1,9 +1,9 @@
 /* eslint-disable node/no-unsupported-features/es-syntax */
 const PendingSerialOrders = require('../Models/PendingSerialOrders');
 const PendingNoSerialOrder = require('../Models/PendingNoSerialOrders');
-
 const FulFilledSerialOrders = require('../Models/FulfilledSerialOrders');
 const FulFilledNoSerialOrders = require('../Models/FulfilledNoSerialOrders');
+const Serial = require('../Models/Serials');
 
 const { User } = require('../Models/User');
 
@@ -206,6 +206,16 @@ exports.getExcelSheetNoSerialAll = catchAsync(async (req, res, next) => {
     },
   ]);
 
+  res.status(200).json({
+    status: 'success',
+    data: data,
+  });
+});
+
+exports.addSerialList = catchAsync(async (req, res, next) => {
+  const data = req.body;
+  console.log(data);
+  await Serial.create(data);
   res.status(200).json({
     status: 'success',
     data: data,

@@ -36,7 +36,7 @@ const PendingNoSerialOrdersSchema = mongoose.Schema({
 });
 
 const PendingNoSerialOrders = mongoose.model(
-  'PendingNoSerialOrders',
+  'Pending-NoSerial-Orders',
   PendingNoSerialOrdersSchema
 );
 

@@ -29,6 +29,14 @@ router
   );
 
 router
+  .route('/add-serial-to-list')
+  .post(
+    authController.protect,
+    authController.restrictTo('admin'),
+    orderContoller.addSerialList
+  );
+
+router
   .route('/get-user-no-serial-orders/:id')
   .get(
     authController.protect,

@@ -36,7 +36,7 @@ const FulFilledNoSerialOrdersSchema = mongoose.Schema({
 });
 
 const FulFilledNoSerialOrders = mongoose.model(
-  'FulFilledNoSerialOrders',
+  'FulFilled-NoSerial-Orders',
   FulFilledNoSerialOrdersSchema
 );
 

@@ -36,7 +36,7 @@ const PendingSerialOrdersSchema = mongoose.Schema({
 });
 
 const PendingSerialOrders = mongoose.model(
-  'PendingSerialOrders',
+  'Pending-Serial-Orders',
   PendingSerialOrdersSchema
 );
 
