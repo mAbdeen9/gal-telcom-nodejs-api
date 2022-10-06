@@ -221,3 +221,30 @@ exports.addSerialList = catchAsync(async (req, res, next) => {
     data: data,
   });
 });
+
+exports.getExcelSheetSerial = catchAsync(async (req, res, next) => {
+  const { id, startingDate, endDate } = req.body;
+  const user = await User.find({ id: id });
+  const data = await Serial.aggregate([
+    {
+      $match: {
+        id: { $eq: id },
+        createdAt: {
+          $gte: new Date(startingDate),
+          $lt: new Date(`${endDate},24:00:00`),
+        },
+      },
+    },
+    {
+      $group: {
+        _id: '$serials',
+      },
+    },
+  ]);
+
+  res.status(200).json({
+    status: 'success',
+    data: data,
+    user,
+  });
+});

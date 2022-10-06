@@ -37,6 +37,14 @@ router
   );
 
 router
+  .route('/get-excel-sheet-serial')
+  .post(
+    authController.protect,
+    authController.restrictTo('admin'),
+    orderContoller.getExcelSheetSerial
+  );
+
+router
   .route('/get-user-no-serial-orders/:id')
   .get(
     authController.protect,
